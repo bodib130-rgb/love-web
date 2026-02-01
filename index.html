@@ -81,8 +81,18 @@
     <input type="password" id="password" placeholder="الباسورد">
     <button onclick="login()">دخول</button>
   </div>
+<script>
+  if (localStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "login.html";
+  }
 
+  function logout() {
+    localStorage.removeItem("loggedIn");
+    window.location.href = "login.html";
+  }
+</script>
   <script>
+    
     function login() {
       const password = document.getElementById("password").value;
 
@@ -109,6 +119,7 @@
 
 </body>
 </html>
+
 
 
 
