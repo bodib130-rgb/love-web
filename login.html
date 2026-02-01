@@ -2,110 +2,83 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <title>دخول ❤️</title>
-
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, #ff5f6d, #ffc371);
-      font-family: Arial, sans-serif;
-      direction: rtl;
-      overflow: hidden;
-    }
-
-    .login-box {
-      background: white;
-      padding: 40px;
-      border-radius: 20px;
-      width: 300px;
-      text-align: center;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      z-index: 2;
-    }
-
-    .login-box h1 {
-      color: #e63946;
-      margin-bottom: 20px;
-    }
-
-    .login-box input {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-      text-align: center;
-    }
-
-    .login-box button {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      background: #e63946;
-      color: white;
-      font-size: 18px;
-      cursor: pointer;
-    }
-
-    .login-box button:hover {
-      background: #d62828;
-    }
-
-    .heart {
-      position: fixed;
-      bottom: 0;
-      font-size: 18px;
-      animation: float 4s linear forwards;
-      z-index: 1;
-    }
-
-    @keyframes float {
-      to {
-        transform: translateY(-100vh);
-        opacity: 0;
-      }
-    }
-  </style>
+  <title>حبيبتي ❤️</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-  <div class="login-box">
-    <h1>❤️ دخول لخوخه</h1>
-    <input type="password" id="password" placeholder="الباسورد">
-    <button onclick="login()">دخول</button>
-  </div>
+<div class="card">
 
-  <script>
-    function login() {
-      const password = document.getElementById("password").value;
+  <button onclick="showLove()">دوسي هنا ي عيني ❤️</button>
 
-      if (password === "0512") {   // 👈 الباسورد هنا
-        localStorage.setItem("loggedIn", "true");
-        window.location.href = "index.html";
-      } else {
-        alert("الباسورد غلط الدخول لخلود بس ❤️");
-      }
-    }
+  <p id="secret" style="display:none; margin-top:15px; font-size:16px;">
+    أنا بحبك أكتر مما تتخيلي، وإنتِ أحلى حاجة في حياتي 
+    أنا مش وحش والله الساعه دلوقتي 6 وأنا بقالي آكتر من 3 ساعات شغال على الموقع دا عشان مش هاين عليا دموعك ولا إن إنتي نمتي زعلانه مش بحب أدك ي حبيبي والله حقك عليا ي حبيبي أنا أسف ع أي حاجه بحبك♥️
+  </p>
 
-    setInterval(() => {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerHTML = "❤️";
-      heart.style.left = Math.random() * 100 + "vw";
-      document.body.appendChild(heart);
+  <img src="love.jpeg" style="width:25%; border-radius:15px; margin-bottom:15px;">
 
-      setTimeout(() => {
-        heart.remove();
-      }, 4000);
-    }, 500);
-  </script>
+  <audio controls autoplay>
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
+
+  <h1>بحبك يا خلودلودتي والله ❤️</h1>
+  <p id="days"></p>
+
+  <button onclick="logout()">تسجيل خروج</button>
+</div>
+
+<script>
+function showLove() {
+  const text = document.getElementById("secret");
+  if (text.style.display === "none") {
+    text.style.display = "block";
+  } else {
+    text.style.display = "none";
+  }
+}
+</script>
+
+<script>
+const startDate = new Date("2023-03-23");
+const today = new Date();
+const diff = today - startDate;
+const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+document.getElementById("days").innerText =
+  "عدّى " + days + " يوم حب مع بعض 💕";
+</script>
+
+<script>
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.innerHTML = "❤️";
+  heart.style.position = "fixed";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.bottom = "0";
+  heart.style.fontSize = "24px";
+  heart.style.animation = "float 5s linear";
+  heart.style.zIndex = "9999";
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 5000);
+}, 400);
+</script>
+
+<style>
+@keyframes float {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}
+</style>
 
 </body>
 </html>
