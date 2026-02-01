@@ -1,85 +1,166 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <title>حبيبتي ❤️</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>حبيبتي ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  direction: rtl;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* الكارد */
+.card {
+  background: rgba(255,255,255,0.95);
+  padding: 30px;
+  border-radius: 25px;
+  width: 340px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+  z-index: 2;
+}
+
+/* الأزرار */
+button {
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 12px;
+  background: #e63946;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  background: #d62828;
+}
+
+.secondary {
+  background: #ff6f91;
+}
+
+.secondary:hover {
+  background: #ff4d6d;
+}
+
+/* النص السري */
+#secret {
+  display: none;
+  margin-top: 15px;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* الميموريز */
+#memories {
+  display: none;
+  margin-top: 15px;
+  background: #fff0f3;
+  padding: 15px;
+  border-radius: 15px;
+  font-size: 14px;
+}
+
+/* القلوب */
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 20px;
+  animation: float 6s linear forwards;
+  opacity: 0.8;
+}
+
+@keyframes float {
+  to {
+    transform: translateY(-110vh);
+    opacity: 0;
+  }
+}
+</style>
 </head>
+
 <body>
 
 <div class="card">
+  <h1>بحبك يا خلودلودتي ❤️</h1>
 
-  <button onclick="showLove()">دوسي هنا ي عيني ❤️</button>
+  <button onclick="showLove()">دوسي هنا يا عيني ❤️</button>
 
-  <p id="secret" style="display:none; margin-top:15px; font-size:16px;">
-  حقك عليا ي حبيبتي من اي حاجة زعلتك انا مش بحب ادك وانا مش وحش والله ولا قاسي ي حبيبي انا عملتلك الموقع دا عشان مهانش عليا زعلك ولا انك نمتي زعلانه ودموعك ع خدك حقك
-   عليا ي حبيبة عيني ان اسف من اي حاجه عاوزك تركزي ف شغلك ومتزعليش من حاجه عشان مش بتعرفي تشتغلي وانتي زعلانه بحبك♥️
+  <p id="secret">
+    حقك عليا يا حبيبتي من أي حاجة زعلتك،  
+    أنا عمري ما كنت قاسي ولا وحش معاكي.  
+    عملتلك الموقع ده عشان مهانش عليا زعلك  
+    ولا إنك تنامي زعلانة.  
+    بحبك ومش عاوزك تزعلى أبدًا ❤️
   </p>
 
-  <img src="love.jpeg" style="width:25%; border-radius:15px; margin-bottom:15px;">
+  <button class="secondary" onclick="toggleMemories()">ذكرياتنا 💕</button>
 
-  <audio controls autoplay>
+  <div id="memories">
+    🌸 أول مرة ضحكنا مع بعض  
+    <br>🌸 أول خروجة  
+    <br>🌸 كلامنا لحد الفجر  
+    <br>🌸 كل يوم عدّى وإحنا سوا ❤️
+  </div>
+
+  <img src="love.jpeg" style="width:30%; border-radius:15px; margin:15px 0;">
+
+  <audio controls>
     <source src="song.mp3" type="audio/mpeg">
   </audio>
 
-  <h1>بحبك يا خلودلودتي والله ❤️</h1>
   <p id="days"></p>
 
   <button onclick="logout()">تسجيل خروج</button>
 </div>
 
 <script>
+// رسالة الحب
 function showLove() {
   const text = document.getElementById("secret");
-  if (text.style.display === "none") {
-    text.style.display = "block";
-  } else {
-    text.style.display = "none";
-  }
+  text.style.display = text.style.display === "block" ? "none" : "block";
 }
-</script>
 
-<script>
+// الميموريز
+function toggleMemories() {
+  const mem = document.getElementById("memories");
+  mem.style.display = mem.style.display === "block" ? "none" : "block";
+}
+
+// تسجيل خروج
+function logout() {
+  window.location.href = "login.html";
+}
+
+// عداد الأيام
 const startDate = new Date("2023-03-23");
 const today = new Date();
-const diff = today - startDate;
-const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-
+const days = Math.floor((today - startDate) / (1000*60*60*24));
 document.getElementById("days").innerText =
   "عدّى " + days + " يوم حب مع بعض 💕";
-</script>
 
-<script>
+// قلوب هادية
 setInterval(() => {
   const heart = document.createElement("div");
+  heart.className = "heart";
   heart.innerHTML = "❤️";
-  heart.style.position = "fixed";
   heart.style.left = Math.random() * 100 + "vw";
-  heart.style.bottom = "0";
-  heart.style.fontSize = "24px";
-  heart.style.animation = "float 5s linear";
-  heart.style.zIndex = "9999";
+  heart.style.fontSize = (16 + Math.random() * 14) + "px";
   document.body.appendChild(heart);
 
-  setTimeout(() => {
-    heart.remove();
-  }, 5000);
-}, 400);
+  setTimeout(() => heart.remove(), 6000);
+}, 700);
 </script>
-
-<style>
-@keyframes float {
-  from {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(-100vh);
-    opacity: 0;
-  }
-}
-</style>
 
 </body>
 </html>
-
