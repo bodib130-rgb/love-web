@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>حبيبتي ❤️</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="card">
+    <h1>بحبك يا خلودلودتي والله _ ❤️</h1>
+    <p id="days"></p>
+    <button onclick="logout()">تسجيل خروج</button>
+  </div>
+
+  <script>
+    const startDate = new Date("2023-03-23"); 
+    const today = new Date();
+    const diff = today - startDate;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+    document.getElementById("days").innerText =
+      "عدّى " + days + " يوم حب مع بعض 💕";
+
+    function logout() {
+      localStorage.removeItem("loveLogin");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
