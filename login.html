@@ -24,8 +24,7 @@ body {
   background: linear-gradient(135deg, #ff758c, #ff7eb3);
   display: flex;
   justify-content: center;
-  align-items: 
-  center;
+  align-items: center;
   z-index: 99999;
 }
 
@@ -130,6 +129,30 @@ button:hover {
   from { opacity: 0; transform: scale(0.8); }
   to { opacity: 1; transform: scale(1); }
 }
+
+/* الفراشات */
+.butterfly {
+  position: fixed;
+  font-size: 22px;
+  pointer-events: none;
+  animation: fly 12s linear forwards;
+  z-index: 1;
+  opacity: 0.9;
+}
+
+@keyframes fly {
+  0% {
+    transform: translateY(110vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120vh) translateX(120px) rotate(360deg);
+    opacity: 0;
+  }
+}
 </style>
 </head>
 
@@ -162,15 +185,15 @@ button:hover {
   <button class="secondary" onclick="toggleMemories()">ذكرياتنا 💕</button>
 
   <div id="memories">
-    🌸 أاول مرا شوفنا بعض فيها فاكراها؟  
-    <br>🌸 لما كنت باجي الدرس عشانك انتي وكنت لما اتاخر بسببك ادخل بالشاي عشان محدش ياخد باله
+    🌸 أول مرة ضحكنا مع بعض  
+    <br>🌸 أول خروجة  
     <br>🌸 كلامنا لحد الفجر  
     <br>🌸 كل يوم عدّى وإحنا سوا ❤️
   </div>
 
   <img src="love.jpeg" style="width:30%; border-radius:15px; margin:15px 0;">
 
-  <audio controls>
+  <audio id="bgMusic" loop>
     <source src="song.mp3" type="audio/mpeg">
   </audio>
 
@@ -180,6 +203,13 @@ button:hover {
 </div>
 
 <script>
+// تشغيل الأغنية عند أول تفاعل
+window.addEventListener("click", () => {
+  const music = document.getElementById("bgMusic");
+  music.play().catch(() => {});
+}, { once: true });
+
+// الرسائل وذكريات
 function showLove() {
   const text = document.getElementById("secret");
   text.style.display = text.style.display === "block" ? "none" : "block";
@@ -194,13 +224,14 @@ function logout() {
   window.location.href = "login.html";
 }
 
+// عداد الأيام
 const startDate = new Date("2023-03-23");
 const today = new Date();
 const days = Math.floor((today - startDate) / (1000*60*60*24));
 document.getElementById("days").innerText =
   "عدّى " + days + " يوم حب مع بعض 💕";
 
-/* قلوب الصفحة */
+// قلوب الصفحة
 setInterval(() => {
   const heart = document.createElement("div");
   heart.className = "heart";
@@ -211,7 +242,7 @@ setInterval(() => {
   setTimeout(() => heart.remove(), 6000);
 }, 700);
 
-/* قلوب الترحيب بالكلام */
+// قلوب الترحيب
 const welcomeInterval = setInterval(() => {
   const heart = document.createElement("div");
   heart.className = "welcome-heart";
@@ -221,14 +252,30 @@ const welcomeInterval = setInterval(() => {
   setTimeout(() => heart.remove(), 6000);
 }, 600);
 
-/* إخفاء الترحيب بعد 30 ثانية */
+// إخفاء الترحيب بعد 30 ثانية
 setTimeout(() => {
   clearInterval(welcomeInterval);
   document.getElementById("welcome").style.display = "none";
-}, 5000);
+
+  // بعد اختفاء الترحيب → فراشات
+  setInterval(() => {
+    const butterfly = document.createElement("div");
+    butterfly.className = "butterfly";
+
+    const butterflies = ["🦋", "💖", "✨"];
+    butterfly.innerHTML =
+      butterflies[Math.floor(Math.random() * butterflies.length)];
+
+    butterfly.style.left = Math.random() * 100 + "vw";
+    butterfly.style.fontSize = (18 + Math.random() * 16) + "px";
+    butterfly.style.animationDuration = (10 + Math.random() * 6) + "s";
+
+    document.body.appendChild(butterfly);
+    setTimeout(() => butterfly.remove(), 16000);
+  }, 600);
+
+}, 30000);
 </script>
 
 </body>
 </html>
-
-
