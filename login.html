@@ -17,6 +17,40 @@ body {
   overflow: hidden;
 }
 
+/* شاشة الترحيب */
+#welcome {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.welcome-box {
+  background: rgba(255,255,255,0.95);
+  padding: 30px;
+  border-radius: 25px;
+  text-align: center;
+  width: 300px;
+  animation: fadeIn 1.5s;
+}
+
+.welcome-box p {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #e63946;
+}
+
+.welcome-heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 14px;
+  animation: floatUp 6s linear forwards;
+  z-index: 99998;
+}
+
 /* الكارد */
 .card {
   background: rgba(255,255,255,0.95);
@@ -53,7 +87,6 @@ button:hover {
   background: #ff4d6d;
 }
 
-/* النص السري */
 #secret {
   display: none;
   margin-top: 15px;
@@ -61,7 +94,6 @@ button:hover {
   line-height: 1.7;
 }
 
-/* الميموريز */
 #memories {
   display: none;
   margin-top: 15px;
@@ -71,7 +103,6 @@ button:hover {
   font-size: 14px;
 }
 
-/* القلوب */
 .heart {
   position: fixed;
   bottom: -20px;
@@ -86,10 +117,33 @@ button:hover {
     opacity: 0;
   }
 }
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-110vh);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
 </style>
 </head>
 
 <body>
+
+<!-- شاشة الترحيب -->
+<div id="welcome">
+  <div class="welcome-box">
+    <p>
+      أنا عامل الموقع دا عشانك مخصوص  
+      <br>
+      عشان كله إلا زعلك ❤️
+    </p>
+  </div>
+</div>
 
 <div class="card">
   <h1>بحبك يا خلودلودتي ❤️</h1>
@@ -98,17 +152,17 @@ button:hover {
 
   <p id="secret">
     حقك عليا يا حبيبتي من أي حاجة زعلتك،  
-    أنا عمري ما كنت قاسي ولا وحش معاكي.  
-    عملتلك الموقع ده عشان مهانش عليا زعلك  
+    أنا مش وحش ولا قاسي والله،  
+    عملتلك الموقع دا عشان مهانش عليا زعلك  
     ولا إنك تنامي زعلانة.  
-    بحبك ومش عاوزك تزعلى أبدًا ❤️
+    بحبك ❤️
   </p>
 
   <button class="secondary" onclick="toggleMemories()">ذكرياتنا 💕</button>
 
   <div id="memories">
-    🌸 أفاكره اول مرا شوفتك فيها ي خوخه 
-    <br>🌸 فاكره لما دخلت الحصه عند علي وانا متاخر ودخلت بالشاي عشانك 
+    🌸 أول مرة ضحكنا مع بعض  
+    <br>🌸 أول خروجة  
     <br>🌸 كلامنا لحد الفجر  
     <br>🌸 كل يوم عدّى وإحنا سوا ❤️
   </div>
@@ -125,31 +179,27 @@ button:hover {
 </div>
 
 <script>
-// رسالة الحب
 function showLove() {
   const text = document.getElementById("secret");
   text.style.display = text.style.display === "block" ? "none" : "block";
 }
 
-// الميموريز
 function toggleMemories() {
   const mem = document.getElementById("memories");
   mem.style.display = mem.style.display === "block" ? "none" : "block";
 }
 
-// تسجيل خروج
 function logout() {
   window.location.href = "login.html";
 }
 
-// عداد الأيام
 const startDate = new Date("2023-03-23");
 const today = new Date();
 const days = Math.floor((today - startDate) / (1000*60*60*24));
 document.getElementById("days").innerText =
   "عدّى " + days + " يوم حب مع بعض 💕";
 
-// قلوب هادية
+/* قلوب الصفحة */
 setInterval(() => {
   const heart = document.createElement("div");
   heart.className = "heart";
@@ -157,11 +207,25 @@ setInterval(() => {
   heart.style.left = Math.random() * 100 + "vw";
   heart.style.fontSize = (16 + Math.random() * 14) + "px";
   document.body.appendChild(heart);
-
   setTimeout(() => heart.remove(), 6000);
 }, 700);
+
+/* قلوب الترحيب بالكلام */
+const welcomeInterval = setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "welcome-heart";
+  heart.innerHTML = "❤️ أنا عامل الموقع دا عشانك مخصوص";
+  heart.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}, 600);
+
+/* إخفاء الترحيب بعد 30 ثانية */
+setTimeout(() => {
+  clearInterval(welcomeInterval);
+  document.getElementById("welcome").style.display = "none";
+}, 30000);
 </script>
 
 </body>
 </html>
-
