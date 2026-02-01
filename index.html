@@ -86,9 +86,9 @@
     function login() {
       const password = document.getElementById("password").value;
 
-      if (password === "0512") {   // 👈 الباسورد هنا
+      if (password === "0512") {
         localStorage.setItem("loggedIn", "true");
-        window.location.href = "index.html";
+        window.location.href = "home.html"; // ✅ الإصلاح الوحيد
       } else {
         alert("الباسورد غلط الدخول لخلود بس ❤️");
       }
